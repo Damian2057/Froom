@@ -32,7 +32,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        run: bash ./gradlew build --no-daemon
 
       - name: Run Tests
         run: ./gradlew test --no-daemon
