@@ -14,19 +14,19 @@ class OutfitController {
             org.springframework.http.HttpStatus.OK)
     }
 
-    @PutMapping("/{outfitId}/item/{itemId}")
+    @PutMapping("/{outfitUuid}/item/{itemUuid}")
     fun addItemToOutfit(
-        @PathVariable outfitId: String,
-        @PathVariable itemId: String
+        @PathVariable outfitUuid: String,
+        @PathVariable itemUuid: String
     ): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
 
-    @DeleteMapping("/{outfitId}/item/{itemId}")
+    @DeleteMapping("/{outfitUuid}/item/{itemUuid}")
     fun deleteItemFromOutfit(
-        @PathVariable outfitId: String,
-        @PathVariable itemId: String
+        @PathVariable outfitUuid: String,
+        @PathVariable itemUuid: String
     ): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
             org.springframework.http.HttpStatus.OK)
@@ -38,20 +38,20 @@ class OutfitController {
             org.springframework.http.HttpStatus.OK)
     }
 
-    @GetMapping("/{id}")
-    fun getOutfitById(@PathVariable id: String): ResponseEntity<OutfitDto> {
+    @GetMapping("/{uuid}")
+    fun getOutfitByUuid(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
 
-    @PutMapping("/{id}")
-    fun updateOutfit(@PathVariable id: String): ResponseEntity<OutfitDto> {
+    @PutMapping("/{uuid}")
+    fun updateOutfit(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
 
-    @DeleteMapping("/{id}")
-    fun deleteOutfit(@PathVariable id: String): ResponseEntity<OutfitDto> {
+    @DeleteMapping("/{uuid}")
+    fun deleteOutfit(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
             org.springframework.http.HttpStatus.OK)
     }

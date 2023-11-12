@@ -23,8 +23,8 @@ class ItemController {
             org.springframework.http.HttpStatus.OK)
     }
 
-    @GetMapping("/{id}")
-    fun getItemById(@PathVariable id: String): ResponseEntity<ItemDto> {
+    @GetMapping("/{uuid}")
+    fun getItemByUuid(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
@@ -35,21 +35,20 @@ class ItemController {
             org.springframework.http.HttpStatus.OK)
     }
 
-    @PutMapping("/{id}")
-    fun updateItem(@PathVariable id: String): ResponseEntity<ItemDto> {
+    @PutMapping("/{uuid}")
+    fun updateItem(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
 
-    @DeleteMapping("/{id}")
-    fun deleteItem(@PathVariable id: String): ResponseEntity<ItemDto> {
+    @DeleteMapping("/{uuid}")
+    fun deleteItem(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
             org.springframework.http.HttpStatus.OK)
     }
 
     @GetMapping("/filter")
     fun getItemsByFilter(
-        @RequestParam(required = false) name: String?,
         @RequestParam(required = false) type: CategoryType?,
         @RequestParam(required = false) bodyPart: BodyPart?,
     ): ResponseEntity<List<ItemDto>> {
