@@ -39,3 +39,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        env:
+          POSTGRES_URL: jdbc:postgresql://localhost:5333/db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
