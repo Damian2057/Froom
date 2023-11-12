@@ -2,6 +2,9 @@ name: Build and Test
 
 env:
   POSTGRESQL_DB: db
+  POSTGRES_URL: jdbc:postgresql://localhost:5333/db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
 
 on:
   push:
@@ -17,9 +20,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         ports:
           - 5333:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -28,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up JDK 1
+      - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
@@ -39,7 +42,3 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-        env:
-          POSTGRES_URL: jdbc:postgresql://localhost:5333/db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
