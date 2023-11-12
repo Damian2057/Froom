@@ -1,8 +1,10 @@
 package com.froom.authorization.controller
 
+import com.froom.authorization.model.command.LoginCommand
 import com.froom.authorization.model.dto.TokenDto
 import com.froom.authorization.service.AuthorizationService
 import com.froom.user.model.dto.UserDto
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -16,7 +18,7 @@ class AuthorizationController(
 ) {
 
     @PostMapping("/login")
-    fun login(): ResponseEntity<TokenDto> {
+    fun login(@Valid command: LoginCommand): ResponseEntity<TokenDto> {
         return ResponseEntity<TokenDto>(null,
             org.springframework.http.HttpStatus.OK)
     }

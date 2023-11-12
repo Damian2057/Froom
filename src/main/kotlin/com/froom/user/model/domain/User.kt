@@ -1,10 +1,8 @@
 package com.froom.user.model.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import com.froom.items.model.domain.Item
+import com.froom.items.model.domain.Outfit
+import jakarta.persistence.*
 import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
 
@@ -18,6 +16,14 @@ class User(
     val id: Int,
 
     val name: String,
+
     val email: String,
+
     val password: String,
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val outfitUsers: MutableList<Outfit> = mutableListOf(),
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val items: MutableList<Item> = mutableListOf()
     )

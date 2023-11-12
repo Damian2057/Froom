@@ -1,9 +1,7 @@
 package com.froom.items.model.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import com.froom.user.model.domain.User
+import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 
@@ -18,4 +16,16 @@ class Outfit (
     val uuid: UUID = UUID.randomUUID(),
 
     val name: String,
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    val user: User,
+
+    @ManyToMany
+    @JoinTable(
+        name = "outfit_item",
+        joinColumns = [JoinColumn(name = "outfit_id")],
+        inverseJoinColumns = [JoinColumn(name = "item_id")]
+    )
+    val items: MutableList<Item> = mutableListOf()
 )

@@ -1,10 +1,7 @@
 package com.froom.items.model.domain
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.MappedSuperclass
+import com.froom.user.model.domain.User
+import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 
@@ -17,4 +14,20 @@ class Item (
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     val uuid: UUID = UUID.randomUUID(),
+
+    @Enumerated(EnumType.STRING)
+    val categoryType: CategoryType,
+
+    @Enumerated(EnumType.STRING)
+    val color: Color,
+
+    @Lob
+    val image: ByteArray,
+
+    @ManyToMany(mappedBy = "items")
+    val outfits: MutableList<Outfit> = mutableListOf(),
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    val user: User
 )
