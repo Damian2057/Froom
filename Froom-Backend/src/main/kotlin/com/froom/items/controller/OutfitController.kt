@@ -1,6 +1,7 @@
 package com.froom.items.controller
 
 import com.froom.items.model.dto.OutfitDto
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -11,7 +12,7 @@ class OutfitController {
     @PostMapping()
     fun createOutfit(): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @PutMapping("/{outfitUuid}/item/{itemUuid}")
@@ -20,7 +21,7 @@ class OutfitController {
         @PathVariable itemUuid: String
     ): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @DeleteMapping("/{outfitUuid}/item/{itemUuid}")
@@ -29,31 +30,31 @@ class OutfitController {
         @PathVariable itemUuid: String
     ): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping()
     fun getAllOutfits(): ResponseEntity<List<OutfitDto>> {
         return ResponseEntity<List<OutfitDto>>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping("/{uuid}")
     fun getOutfitByUuid(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @PutMapping("/{uuid}")
     fun updateOutfit(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @DeleteMapping("/{uuid}")
     fun deleteOutfit(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping("/filter")
@@ -61,18 +62,18 @@ class OutfitController {
         @RequestParam(required = false) name: String?,
     ): ResponseEntity<List<OutfitDto>> {
         return ResponseEntity<List<OutfitDto>>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping("/random")
     fun getRandomOutfit(): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @PostMapping("/random")
     fun createRandomOutfit(): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 }

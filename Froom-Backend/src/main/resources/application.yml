@@ -1,8 +1,10 @@
 spring:
   config:
     import: optional:file:.env[.properties]
+
   application:
     name: Froom
+
   datasource:
     username: ${POSTGRES_USER:#{user}}
     password: ${POSTGRES_PASSWORD:#{password}}
@@ -16,3 +18,12 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
+  security:
+    jwt:
+      secret: ${JWT_SECRET}
+      expiration: ${JWT_EXPIRATION}
+      header: ${JWT_HEADER}
+      prefix: ${JWT_PREFIX}
+      refresh:
+        expiration: ${JWT_REFRESH_EXPIRATION}
