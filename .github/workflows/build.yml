@@ -39,14 +39,14 @@ jobs:
           java-version: '17'
 
       - name: Make Gradlew Executable
-        working-directory: Froom/
+        working-directory: Froom-Backend/
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        working-directory: Froom/
+        working-directory: Froom-Backend/
         run: ./gradlew build
 
       - name: Run Tests with Gradle
-        working-directory: Froom/
+        working-directory: Froom-Backend/
         run: ./gradlew test
 
