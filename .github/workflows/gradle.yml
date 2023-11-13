@@ -13,7 +13,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Froom-Backend-Gradle:
+    name: Froom-Backend-Gradle
     runs-on: ubuntu-latest
 
     services:
@@ -38,10 +39,14 @@ jobs:
           java-version: '17'
 
       - name: Make Gradlew Executable
+        working-directory: Froom/
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        working-directory: Froom/
         run: ./gradlew build
 
       - name: Run Tests with Gradle
+        working-directory: Froom/
         run: ./gradlew test
+

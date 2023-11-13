@@ -1,0 +1,6 @@
+Lib
+Scripts
+.idea
+*.iml
+*.cfg
+__pycache__

@@ -1,0 +1,18 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: Froom
+  datasource:
+    username: ${POSTGRES_USER:#{user}}
+    password: ${POSTGRES_PASSWORD:#{password}}
+    url: ${POSTGRES_URL}
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
