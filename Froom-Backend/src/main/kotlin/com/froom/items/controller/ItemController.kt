@@ -32,6 +32,7 @@ class ItemController {
 
     @PostMapping()
     fun createItem(): ResponseEntity<ItemDto> {
+        //TODO: authentication: Authentication, authentication.toUser()
         return ResponseEntity<ItemDto>(null,
             HttpStatus.OK)
     }

@@ -29,9 +29,9 @@ class AuthorizationController(
             HttpStatus.OK)
     }
 
-    @PutMapping("/refresh")
-    fun refresh(@RequestBody @Valid command: RefreshTokenCommand): ResponseEntity<TokenDto> {
-        return ResponseEntity<TokenDto> (authorizationService.refresh(command),
-            HttpStatus.OK)
-    }
+//    @PutMapping("/refresh")
+//    fun refresh(@RequestBody @Valid command: RefreshTokenCommand): ResponseEntity<TokenDto> {
+//        return ResponseEntity<TokenDto> (authorizationService.refresh(command),
+//            HttpStatus.OK)
+//    }
 }

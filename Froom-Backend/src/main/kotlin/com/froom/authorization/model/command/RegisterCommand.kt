@@ -5,7 +5,6 @@ import java.util.Date
 data class RegisterCommand(
     val email: String,
     val password: String,
-    val firstName: String,
-    val lastName: String,
+    val userName: String,
     val birthDate: Date
 )

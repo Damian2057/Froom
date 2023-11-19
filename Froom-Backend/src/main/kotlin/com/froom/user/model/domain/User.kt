@@ -14,9 +14,9 @@ import java.util.*
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int,
+    val id: Long?,
 
-    val name: String,
+    val userName: String,
 
     val email: String,
 
