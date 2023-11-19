@@ -3,6 +3,7 @@ package com.froom.items.controller
 import com.froom.items.model.domain.BodyPart
 import com.froom.items.model.domain.CategoryType
 import com.froom.items.model.dto.ItemDto
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,31 +21,32 @@ class ItemController {
     @GetMapping()
     fun getAllItems(): ResponseEntity<List<ItemDto>> {
         return ResponseEntity<List<ItemDto>>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping("/{uuid}")
     fun getItemByUuid(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @PostMapping()
     fun createItem(): ResponseEntity<ItemDto> {
+        //TODO: authentication: Authentication, authentication.toUser()
         return ResponseEntity<ItemDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @PutMapping("/{uuid}")
     fun updateItem(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @DeleteMapping("/{uuid}")
     fun deleteItem(@PathVariable uuid: String): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
     @GetMapping("/filter")
@@ -53,7 +55,7 @@ class ItemController {
         @RequestParam(required = false) bodyPart: BodyPart?,
     ): ResponseEntity<List<ItemDto>> {
         return ResponseEntity<List<ItemDto>>(null,
-            org.springframework.http.HttpStatus.OK)
+            HttpStatus.OK)
     }
 
 }

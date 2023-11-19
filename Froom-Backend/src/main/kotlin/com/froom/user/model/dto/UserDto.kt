@@ -1,6 +1,9 @@
 package com.froom.user.model.dto
 
+import java.util.Date
+
 data class UserDto(
-    val name: String,
-    val email: String
+    val email: String,
+    val userName: String,
+    val birthDate: Date,
 )

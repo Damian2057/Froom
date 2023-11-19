@@ -5,6 +5,7 @@ import com.froom.items.model.domain.Outfit
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
+import java.util.*
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,13 +14,15 @@ import lombok.NoArgsConstructor
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int,
+    val id: Long?,
 
-    val name: String,
+    val userName: String,
 
     val email: String,
 
     val password: String,
+
+    val birthDate: Date,
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     val outfitUsers: MutableList<Outfit> = mutableListOf(),
