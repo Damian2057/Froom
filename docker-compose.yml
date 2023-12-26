@@ -46,3 +46,11 @@ services:
       - .env
     ports:
       - "5000:5000"
+
+  color-module:
+    build: ./ColorClassification
+    container_name: Froom-ColorModule
+    env_file:
+      - .env
+    ports:
+      - "5001:5000"
