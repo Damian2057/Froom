@@ -41,7 +41,21 @@ class TokenService(
         )
     }
 
-    fun createRefreshToken(user: User): String {
+    fun checkTokenAndReturnUser(token: String): User? {
+        return try {
+            val jwt = jwtDecoder.decode(token)
+            val userId = jwt.claims[ID] as Long
+            val isRefresh = jwt.claims[REFRESH] as? Boolean
+            if (isRefresh != null && isRefresh) {
+                throw TokenException("Invalid token: Refresh token not allowed.")
+            }
+            userService.findById(userId)
+        } catch (e: Exception) {
+            throw TokenException("Invalid token")
+        }
+    }
+
+    private fun createRefreshToken(user: User): String {
         val jwsHeader = JwsHeader.with { "HS256" }.build()
         val claims = JwtClaimsSet.builder()
             .issuedAt(Instant.now())
@@ -62,19 +76,5 @@ class TokenService(
             .claim(ID, user.id)
             .build()
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
-    }
-
-    fun parseToken(token: String): User? {
-        return try {
-            val jwt = jwtDecoder.decode(token)
-            val userId = jwt.claims[ID] as Long
-            val isRefresh = jwt.claims[REFRESH] as? Boolean
-            if (isRefresh != null && isRefresh) {
-                throw TokenException("Invalid token: Refresh token not allowed.")
-            }
-            userService.findById(userId)
-        } catch (e: Exception) {
-            throw TokenException("Invalid token")
-        }
     }
 }
