@@ -4,3 +4,4 @@ Scripts
 *.iml
 *.cfg
 __pycache__
+*.h5
