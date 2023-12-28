@@ -42,6 +42,8 @@ def predict_clothing(file):
 
     # Decode and print the top predicted label
     predicted_label = class_labels[class_index]
+    confidence = predictions[0, class_index] * 100
     logger.info("Predicted category: %s", predicted_label)
+    logger.info("Confidence: %s", confidence)
 
-    return predicted_label
+    return predicted_label, confidence
