@@ -8,8 +8,8 @@ plugins {
     kotlin("plugin.jpa") version "1.8.22"
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
+group = "com.froom"
+version = "0.0.2-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
