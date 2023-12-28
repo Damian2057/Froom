@@ -28,9 +28,9 @@ def predict():
 
     try:
         # Perform prediction
-        predicted_category = predict_clothing(file)
+        predicted_category, confidence_category = predict_clothing(file)
 
-        return jsonify(PredictedCategory(predicted_category).__dict__)
+        return jsonify(PredictedCategory(predicted_category, confidence_category).__dict__)
 
     except Exception as e:
         logger.error('Error while predicting category: %s', str(e))
