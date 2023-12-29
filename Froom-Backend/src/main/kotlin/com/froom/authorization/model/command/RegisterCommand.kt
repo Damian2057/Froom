@@ -1,5 +1,6 @@
 package com.froom.authorization.model.command
 
+import com.froom.user.model.domain.Gender
 import jakarta.validation.constraints.NotBlank
 import org.jetbrains.annotations.NotNull
 import java.util.Date
@@ -18,5 +19,9 @@ data class RegisterCommand(
     val userName: String,
 
     @field:NotNull
-    val birthDate: Date
+    @field:NotBlank(message = "Birth date is required")
+    val birthDate: Date,
+
+    @field:NotNull
+    val gender: Gender = Gender.UNKNOWN
 )

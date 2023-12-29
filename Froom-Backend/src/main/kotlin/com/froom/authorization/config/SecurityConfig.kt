@@ -25,7 +25,6 @@ class SecurityConfig(
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        // Define public and private routes
         http.authorizeHttpRequests { authorizeHttpRequests ->
             authorizeHttpRequests
                 //Authentication APIs

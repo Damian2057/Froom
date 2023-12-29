@@ -8,5 +8,6 @@ fun User.toDto(): UserDto {
         email = this.email,
         userName = this.userName,
         birthDate = this.birthDate,
+        gender = this.gender
     )
 }

@@ -5,6 +5,7 @@ import com.froom.items.model.domain.Outfit
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
+import org.hibernate.annotations.GenericGenerator
 import java.util.*
 
 @AllArgsConstructor
@@ -16,6 +17,10 @@ class User(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long?,
 
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    val uuid: UUID = UUID.randomUUID(),
+
     val userName: String,
 
     val email: String,
@@ -23,6 +28,9 @@ class User(
     val password: String,
 
     val birthDate: Date,
+
+    @Enumerated(EnumType.STRING)
+    val gender: Gender,
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     val outfitUsers: MutableList<Outfit> = mutableListOf(),
