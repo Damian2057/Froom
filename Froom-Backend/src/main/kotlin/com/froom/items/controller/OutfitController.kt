@@ -12,7 +12,7 @@ class OutfitController {
     @PostMapping()
     fun createOutfit(): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            HttpStatus.OK)
+            HttpStatus.CREATED)
     }
 
     @PutMapping("/{outfitUuid}/item/{itemUuid}")
@@ -21,7 +21,7 @@ class OutfitController {
         @PathVariable itemUuid: String
     ): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 
     @DeleteMapping("/{outfitUuid}/item/{itemUuid}")
@@ -48,7 +48,7 @@ class OutfitController {
     @PutMapping("/{uuid}")
     fun updateOutfit(@PathVariable uuid: String): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 
     @DeleteMapping("/{uuid}")
@@ -74,6 +74,6 @@ class OutfitController {
     @PostMapping("/random")
     fun createRandomOutfit(): ResponseEntity<OutfitDto> {
         return ResponseEntity<OutfitDto>(null,
-            HttpStatus.OK)
+            HttpStatus.CREATED)
     }
 }

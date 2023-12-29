@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 
 
 @Configuration
@@ -37,13 +38,9 @@ class SecurityConfig(
                 jwt
             }
         }.authenticationManager { authenticationManager ->
-            try {
-                val jwt = authenticationManager as BearerTokenAuthenticationToken
-                val user = tokenService.checkTokenAndReturnUser(jwt.token) ?: throw InvalidBearerTokenException("Invalid token")
-                UsernamePasswordAuthenticationToken(user, "", listOf(SimpleGrantedAuthority("USER")))
-            } catch (e: Exception) {
-                throw InvalidBearerTokenException("Invalid token", e)
-            }
+            val jwt = authenticationManager as BearerTokenAuthenticationToken
+            val user = tokenService.checkTokenAndReturnUser(jwt.token) ?: throw InvalidBearerTokenException("Invalid token")
+            UsernamePasswordAuthenticationToken(user, "", listOf(SimpleGrantedAuthority("USER")))
         }.csrf { csrf ->
             csrf.disable()
         }.sessionManagement { sessionManagement ->
@@ -56,7 +53,7 @@ class SecurityConfig(
             }
         }.cors{ cors ->
             cors
-        }
+        }.addFilterBefore(ExceptionHandlerFilter(), CorsFilter::class.java)
 
         return http.build()
     }

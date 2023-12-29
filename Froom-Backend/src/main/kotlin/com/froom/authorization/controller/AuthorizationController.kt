@@ -18,12 +18,12 @@ class AuthorizationController(
     @PostMapping("/login")
     fun login(@RequestBody @Valid command: LoginAuthCommand): ResponseEntity<TokenDto> {
         return ResponseEntity<TokenDto>(authorizationService.login(command),
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 
     @PutMapping("/refresh")
     fun refresh(@RequestBody @Valid command: RefreshAuthCommand): ResponseEntity<TokenDto> {
         return ResponseEntity<TokenDto> (authorizationService.refreshToken(command),
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 }

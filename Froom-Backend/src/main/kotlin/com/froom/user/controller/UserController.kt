@@ -27,21 +27,21 @@ class UserController (
     @PostMapping("/register")
     fun register(@RequestBody @Valid command: RegisterUserCommand): ResponseEntity<UserDto> {
         return ResponseEntity<UserDto> (userService.registerUser(command),
-            HttpStatus.OK)
+            HttpStatus.CREATED)
     }
 
     @PutMapping()
     fun updateUser(authentication: Authentication,
                    @RequestBody @Valid command: UpdateUserCommand): ResponseEntity<UserDto> {
         return ResponseEntity<UserDto>(userService.updateUser(authentication.toUser(), command),
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 
     @PutMapping("/password")
     fun updatePassword(authentication: Authentication,
                        @RequestBody @Valid command: UpdateUserPasswordCommand): ResponseEntity<UserDto> {
         return ResponseEntity<UserDto>(userService.updatePassword(authentication.toUser(), command),
-            HttpStatus.OK)
+            HttpStatus.ACCEPTED)
     }
 
     @DeleteMapping()
