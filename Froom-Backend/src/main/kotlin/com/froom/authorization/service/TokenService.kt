@@ -57,7 +57,6 @@ class TokenService(
             }
             userService.findByUuid(uuid)
         } catch (e: Exception) {
-            e.printStackTrace()
             throw TokenException("Invalid token")
         }
     }

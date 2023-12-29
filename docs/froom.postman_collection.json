@@ -151,6 +151,33 @@
 					"name": "user",
 					"item": [
 						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"Test_User2@gmail.com\",\r\n    \"password\": \"password123\",\r\n    \"userName\": \"UserName123\",\r\n    \"birthDate\": \"2022-12-12\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/user/register",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "user",
 							"request": {
 								"auth": {
@@ -164,6 +191,33 @@
 									]
 								},
 								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BACKEND_URL}}/user",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
 								"header": [],
 								"url": {
 									"raw": "{{BACKEND_URL}}/user",
@@ -214,13 +268,23 @@
 							"response": []
 						},
 						{
-							"name": "register",
+							"name": "updatepassword",
 							"request": {
-								"method": "POST",
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"Test_User@gmail.com\",\r\n    \"password\": \"password123\",\r\n    \"userName\": \"UserName123\",\r\n    \"birthDate\": \"2022-12-12\"\r\n}",
+									"raw": "{\r\n    \"gender\": \"MAN\",\r\n    \"email\": \"\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -228,13 +292,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{BACKEND_URL}}/user/register",
+									"raw": "{{BACKEND_URL}}/user/password",
 									"host": [
 										"{{BACKEND_URL}}"
 									],
 									"path": [
 										"user",
-										"register"
+										"password"
 									]
 								}
 							},

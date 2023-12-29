@@ -35,7 +35,6 @@ class UserService (
 
     fun removeUser(user: User): UserDto {
         userRepository.delete(user)
-
         return user.toDto()
     }
 
@@ -50,11 +49,29 @@ class UserService (
         user.gender = command.gender
 
         return userRepository.save(user).toDto()
-
     }
 
     fun updatePassword(user: User, command: UpdateUserPasswordCommand): UserDto {
-        return null!!
+        if (!hashService.checkBcrypt(command.oldPassword, user.password)) {
+            throw InvalidCredentialsException("Invalid old password")
+        }
+
+        val newPassword = command.newPassword
+        val confirmPassword = command.confirmPassword
+
+        when {
+            newPassword != confirmPassword -> {
+                throw InvalidCredentialsException("New password and confirm password do not match")
+            }
+            newPassword == command.oldPassword -> {
+                throw InvalidCredentialsException("New password must be different from the old password")
+            }
+            else -> {
+                user.password = hashService.hashBcrypt(newPassword)
+                val updatedUser = userRepository.save(user)
+                return updatedUser.toDto()
+            }
+        }
     }
 
     fun registerUser(command: RegisterUserCommand): UserDto {

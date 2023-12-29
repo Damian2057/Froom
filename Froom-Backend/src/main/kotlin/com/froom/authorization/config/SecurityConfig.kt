@@ -37,9 +37,13 @@ class SecurityConfig(
                 jwt
             }
         }.authenticationManager { authenticationManager ->
-            val jwt = authenticationManager as BearerTokenAuthenticationToken
-            val user = tokenService.checkTokenAndReturnUser(jwt.token) ?: throw InvalidBearerTokenException("Invalid token")
-            UsernamePasswordAuthenticationToken(user, "", listOf(SimpleGrantedAuthority("USER")))
+            try {
+                val jwt = authenticationManager as BearerTokenAuthenticationToken
+                val user = tokenService.checkTokenAndReturnUser(jwt.token) ?: throw InvalidBearerTokenException("Invalid token")
+                UsernamePasswordAuthenticationToken(user, "", listOf(SimpleGrantedAuthority("USER")))
+            } catch (e: Exception) {
+                throw InvalidBearerTokenException("Invalid token", e)
+            }
         }.csrf { csrf ->
             csrf.disable()
         }.sessionManagement { sessionManagement ->
