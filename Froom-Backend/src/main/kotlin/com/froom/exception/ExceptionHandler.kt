@@ -39,7 +39,7 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
                 code = HttpStatus.BAD_REQUEST.value(),
                 errors = errors
             ),
-            HttpStatus.UNAUTHORIZED
+            HttpStatus.BAD_REQUEST
         )
     }
 
@@ -56,7 +56,7 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
                 code = HttpStatus.BAD_REQUEST.value(),
                 errors = emptyMap()
             ),
-            HttpStatus.UNAUTHORIZED
+            HttpStatus.BAD_REQUEST
         )
     }
 

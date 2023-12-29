@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 
 
 @Configuration
@@ -25,11 +26,12 @@ class SecurityConfig(
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        // Define public and private routes
         http.authorizeHttpRequests { authorizeHttpRequests ->
             authorizeHttpRequests
                 //Authentication APIs
                 .requestMatchers(HttpMethod.POST,   "/auth/*").permitAll()
+                .requestMatchers(HttpMethod.PUT,    "/auth/*").permitAll()
+                .requestMatchers(HttpMethod.POST,   "/user/register").permitAll()
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { oauth2ResourceServer ->
             oauth2ResourceServer.jwt{ jwt ->
@@ -51,7 +53,7 @@ class SecurityConfig(
             }
         }.cors{ cors ->
             cors
-        }
+        }.addFilterBefore(ExceptionHandlerFilter(), CorsFilter::class.java)
 
         return http.build()
     }

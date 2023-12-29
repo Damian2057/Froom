@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.UUID
 
 @Service
 class TokenService(
@@ -27,8 +28,9 @@ class TokenService(
     @Value("\${spring.security.jwt.refresh.unit}")
     private val refreshExpirationUnit: ChronoUnit,
 ) {
-    private final val ID: String = "id"
-    private final val REFRESH: String = "refresh"
+    private final val UUID_SIGNATURE: String = "UUID"
+    private final val REFRESH: String = "REFRESH"
+    private final val ALGORITHM = "HS256"
 
     fun generateToken(user: User): TokenDto {
         return TokenDto(
@@ -44,36 +46,40 @@ class TokenService(
     fun checkTokenAndReturnUser(token: String): User? {
         return try {
             val jwt = jwtDecoder.decode(token)
-            val userId = jwt.claims[ID] as Long
+            val uuid: UUID = when (val uuidClaim = jwt.claims[UUID_SIGNATURE]) {
+                is String -> UUID.fromString(uuidClaim)
+                is UUID -> uuidClaim
+                else -> throw TokenException("Unexpected type for UUID claim")
+            }
             val isRefresh = jwt.claims[REFRESH] as? Boolean
             if (isRefresh != null && isRefresh) {
                 throw TokenException("Invalid token: Refresh token not allowed.")
             }
-            userService.findById(userId)
+            userService.findByUuid(uuid)
         } catch (e: Exception) {
             throw TokenException("Invalid token")
         }
     }
 
     private fun createRefreshToken(user: User): String {
-        val jwsHeader = JwsHeader.with { "HS256" }.build()
+        val jwsHeader = JwsHeader.with { ALGORITHM }.build()
         val claims = JwtClaimsSet.builder()
             .issuedAt(Instant.now())
             .expiresAt(Instant.now().plus(refreshExpirationTime, refreshExpirationUnit))
             .subject(user.userName)
-            .claim(ID, user.id)
+            .claim(UUID_SIGNATURE, user.uuid)
             .claim(REFRESH, true)
             .build()
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
     }
 
     private fun createToken(user: User): String {
-        val jwsHeader = JwsHeader.with { "HS256" }.build()
+        val jwsHeader = JwsHeader.with { ALGORITHM }.build()
         val claims = JwtClaimsSet.builder()
             .issuedAt(Instant.now())
             .expiresAt(Instant.now().plus(accessExpirationTime, accessExpirationUnit))
             .subject(user.userName)
-            .claim(ID, user.id)
+            .claim(UUID_SIGNATURE, user.uuid)
             .build()
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
     }
