@@ -1,8 +1,8 @@
 package com.froom.user.controller
 
-import com.froom.authorization.model.command.RegisterCommand
+import com.froom.user.model.command.RegisterUserCommand
 import com.froom.authorization.util.toUser
-import com.froom.user.model.command.UpdatePasswordCommand
+import com.froom.user.model.command.UpdateUserPasswordCommand
 import com.froom.user.model.command.UpdateUserCommand
 import com.froom.user.model.dto.UserDto
 import com.froom.user.service.UserService
@@ -25,7 +25,7 @@ class UserController (
     }
 
     @PostMapping("/register")
-    fun register(@RequestBody @Valid command: RegisterCommand): ResponseEntity<UserDto> {
+    fun register(@RequestBody @Valid command: RegisterUserCommand): ResponseEntity<UserDto> {
         return ResponseEntity<UserDto> (userService.registerUser(command),
             HttpStatus.OK)
     }
@@ -39,7 +39,7 @@ class UserController (
 
     @PutMapping("/password")
     fun updatePassword(authentication: Authentication,
-                       @RequestBody @Valid command: UpdatePasswordCommand): ResponseEntity<UserDto> {
+                       @RequestBody @Valid command: UpdateUserPasswordCommand): ResponseEntity<UserDto> {
         return ResponseEntity<UserDto>(userService.updatePassword(authentication.toUser(), command),
             HttpStatus.OK)
     }

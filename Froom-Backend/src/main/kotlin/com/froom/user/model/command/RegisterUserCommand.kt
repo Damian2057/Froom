@@ -1,13 +1,13 @@
-package com.froom.authorization.model.command
+package com.froom.user.model.command
 
 import com.froom.user.model.domain.Gender
 import jakarta.validation.constraints.NotBlank
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 import java.util.Date
 
-data class RegisterCommand(
+data class RegisterUserCommand(
     @field:NotBlank(message = "Email is required")
-    @field:NotNull
+    @field:NotNull(message = "Gender is required")
     val email: String,
 
     @field:NotBlank(message = "Password is required")
@@ -18,10 +18,9 @@ data class RegisterCommand(
     @field:NotNull
     val userName: String,
 
-    @field:NotNull
-    @field:NotBlank(message = "Birth date is required")
+    @field:NotNull(message = "Birth date is required")
     val birthDate: Date,
 
-    @field:NotNull
+    @field:NotNull(message = "Gender is required")
     val gender: Gender = Gender.UNKNOWN
 )

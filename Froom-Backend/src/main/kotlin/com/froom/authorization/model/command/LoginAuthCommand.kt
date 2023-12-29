@@ -1,9 +1,9 @@
 package com.froom.authorization.model.command
 
 import jakarta.validation.constraints.NotBlank
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 
-data class LoginCommand(
+data class LoginAuthCommand(
     @NotNull
     @field:NotBlank(message = "Email is required")
     val email: String,

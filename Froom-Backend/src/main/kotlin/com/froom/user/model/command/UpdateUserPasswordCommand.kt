@@ -1,9 +1,9 @@
 package com.froom.user.model.command
 
 import jakarta.validation.constraints.NotBlank
-import org.jetbrains.annotations.NotNull
+import jakarta.validation.constraints.NotNull
 
-data class UpdatePasswordCommand(
+data class UpdateUserPasswordCommand(
     @NotNull
     @field:NotBlank(message = "Old password is required")
     val oldPassword: String,

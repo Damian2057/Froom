@@ -1,5 +1,5 @@
 package com.froom.authorization.model.command
 
-data class RefreshTokenCommand(
+data class RefreshAuthCommand(
     val refreshToken: String
 )

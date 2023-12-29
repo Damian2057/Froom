@@ -1,7 +1,7 @@
 package com.froom.authorization.service
 
-import com.froom.authorization.model.command.LoginCommand
-import com.froom.authorization.model.command.RefreshTokenCommand
+import com.froom.authorization.model.command.LoginAuthCommand
+import com.froom.authorization.model.command.RefreshAuthCommand
 import com.froom.authorization.model.dto.TokenDto
 import com.froom.exception.type.InvalidCredentialsException
 import com.froom.user.service.UserService
@@ -14,7 +14,7 @@ class AuthorizationService(
     private val tokenService: TokenService,
 ) {
 
-    fun login(command: LoginCommand): TokenDto {
+    fun login(command: LoginAuthCommand): TokenDto {
         val user = userService.findByEmail(command.email)
         if (user == null || !hashService.checkBcrypt(command.password, user.password)) {
             throw InvalidCredentialsException("Invalid credentials")
@@ -23,7 +23,7 @@ class AuthorizationService(
         return tokenService.generateToken(user)
     }
 
-    fun refreshToken(command: RefreshTokenCommand): TokenDto {
+    fun refreshToken(command: RefreshAuthCommand): TokenDto {
         return null!!
     }
 }

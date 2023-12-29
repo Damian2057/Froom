@@ -19,18 +19,20 @@ class User(
 
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(unique = true)
     val uuid: UUID = UUID.randomUUID(),
 
-    val userName: String,
+    var userName: String,
 
-    val email: String,
+    @Column(unique = true)
+    var email: String,
 
-    val password: String,
+    var password: String,
 
-    val birthDate: Date,
+    var birthDate: Date,
 
     @Enumerated(EnumType.STRING)
-    val gender: Gender,
+    var gender: Gender,
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     val outfitUsers: MutableList<Outfit> = mutableListOf(),

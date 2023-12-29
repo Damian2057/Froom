@@ -2,6 +2,7 @@ package com.froom.user.model.command
 
 import com.froom.user.model.domain.Gender
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import java.util.*
 
 data class UpdateUserCommand(
@@ -12,9 +13,9 @@ data class UpdateUserCommand(
     @field:NotBlank(message = "Username is required")
     val userName: String,
 
-    @field:NotBlank(message = "Birth date is required")
+    @field:NotNull(message = "Birth date is required")
     val birthDate: Date,
 
-    @field:NotBlank(message = "Gender is required")
+    @field:NotNull(message = "Gender is required")
     val gender: Gender
 )
