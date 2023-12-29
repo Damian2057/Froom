@@ -29,6 +29,7 @@ class SecurityConfig(
             authorizeHttpRequests
                 //Authentication APIs
                 .requestMatchers(HttpMethod.POST,   "/auth/*").permitAll()
+                .requestMatchers(HttpMethod.PUT,    "/auth/*").permitAll()
                 .requestMatchers(HttpMethod.POST,   "/user/register").permitAll()
                 .anyRequest().authenticated()
         }.oauth2ResourceServer { oauth2ResourceServer ->

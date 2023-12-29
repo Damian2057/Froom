@@ -24,6 +24,6 @@ class AuthorizationService(
     }
 
     fun refreshToken(command: RefreshAuthCommand): TokenDto {
-        return null!!
+        throw NotImplementedError()
     }
 }
