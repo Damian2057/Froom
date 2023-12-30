@@ -28,6 +28,7 @@ class TokenService(
     @Value("\${spring.security.jwt.refresh.unit}")
     private val refreshExpirationUnit: ChronoUnit,
 ) {
+    private final val INVALID_TOKEN = "Invalid token"
     private final val UUID_SIGNATURE: String = "UUID"
     private final val REFRESH: String = "REFRESH"
     private final val ALGORITHM = "HS256"
@@ -45,19 +46,41 @@ class TokenService(
 
     fun checkTokenAndReturnUser(token: String): User? {
         return try {
-            val jwt = jwtDecoder.decode(token)
-            val uuid: UUID = when (val uuidClaim = jwt.claims[UUID_SIGNATURE]) {
-                is String -> UUID.fromString(uuidClaim)
-                is UUID -> uuidClaim
-                else -> throw TokenException("Unexpected type for UUID claim")
-            }
+            val jwt = decodeToken(token)
+            val uuid: UUID = getUUIDFromClaim(jwt)
             val isRefresh = jwt.claims[REFRESH] as? Boolean
             if (isRefresh != null && isRefresh) {
                 throw TokenException("Invalid token: Refresh token not allowed.")
             }
             userService.findByUuid(uuid)
         } catch (e: Exception) {
-            throw TokenException("Invalid token")
+            throw TokenException(INVALID_TOKEN)
+        }
+    }
+
+    fun checkRefreshTokenAndReturnUser(token: String): User {
+        return try {
+            val jwt = decodeToken(token)
+            val uuid: UUID = getUUIDFromClaim(jwt)
+            val isRefresh = jwt.claims[REFRESH] as? Boolean
+            if (isRefresh != null && !isRefresh) {
+                throw TokenException("Invalid token: Access token not allowed.")
+            }
+            userService.findByUuid(uuid) ?: throw TokenException("Invalid token")
+        } catch (e: Exception) {
+            throw TokenException(INVALID_TOKEN)
+        }
+    }
+
+    private fun decodeToken(token: String): Jwt {
+        return jwtDecoder.decode(token)
+    }
+
+    private fun getUUIDFromClaim(jwt: Jwt): UUID {
+        return when (val uuidClaim = jwt.claims[UUID_SIGNATURE]) {
+            is String -> UUID.fromString(uuidClaim)
+            is UUID -> uuidClaim
+            else -> throw TokenException("Unexpected type for UUID claim")
         }
     }
 
