@@ -1,7 +1,7 @@
 package com.froom.items.model.domain
 
-enum class CategoryType(s: String, upperPart: BodyPart, i: Int) {
-    T_SHIRT_TOP("T-Shirt Top", BodyPart.UPPER_PART, 0),
+enum class CategoryType(name: String, bodyPart: BodyPart, index: Int) {
+    T_SHIRT_TOP("T-Shirt/Top", BodyPart.UPPER_PART, 0),
     TROUSERS("Trousers", BodyPart.LOWER_PART, 1),
     PULLOVER("Pullover", BodyPart.UPPER_PART, 2),
     DRESS("Dress", BodyPart.UPPER_PART, 3),

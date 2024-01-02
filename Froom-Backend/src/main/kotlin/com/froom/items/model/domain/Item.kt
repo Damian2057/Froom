@@ -18,8 +18,10 @@ class Item (
     @Enumerated(EnumType.STRING)
     val categoryType: CategoryType,
 
-    @Enumerated(EnumType.STRING)
-    val color: Color,
+    @ElementCollection
+    @CollectionTable(name = "item_color", joinColumns = [JoinColumn(name = "item_id")])
+    @Column(name = "color")
+    val color: List<Int>,
 
     @Lob
     val image: ByteArray,
