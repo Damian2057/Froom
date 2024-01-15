@@ -30,3 +30,6 @@ spring:
       refresh:
         expiration: ${JWT_REFRESH_EXPIRATION}
         unit: ${JWT_REFRESH_EXPIRATION_UNIT}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST}:${KAFKA_PORT}

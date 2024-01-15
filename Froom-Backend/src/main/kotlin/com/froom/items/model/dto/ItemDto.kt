@@ -1,10 +1,11 @@
 package com.froom.items.model.dto
 
+import com.froom.items.model.domain.CategoryType
 import java.util.UUID
 
 data class ItemDto(
     val uuid: UUID,
-    val categoryType: String,
+    val categoryType: CategoryType,
     val color: List<Int>,
     val image: ByteArray,
 )

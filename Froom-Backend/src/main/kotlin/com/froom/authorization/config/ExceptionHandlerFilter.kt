@@ -8,11 +8,14 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.multipart.MultipartException
 import java.io.IOException
 
 class ExceptionHandlerFilter : OncePerRequestFilter() {
 
-    @Throws(ServletException::class, IOException::class)
+    @Throws(ServletException::class,
+        IOException::class,
+        MultipartException::class)
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
