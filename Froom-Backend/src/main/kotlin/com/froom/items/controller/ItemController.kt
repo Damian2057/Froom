@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
+import java.util.UUID
 
 @RestController
 @RequestMapping("/item")
@@ -31,7 +32,7 @@ class ItemController(
     }
 
     @GetMapping("/{uuid}")
-    fun getItemByUuid(@PathVariable uuid: String): ResponseEntity<ItemDto> {
+    fun getItemByUuid(@PathVariable uuid: UUID): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(itemService.getItemByUuid(uuid),
             HttpStatus.OK)
     }
