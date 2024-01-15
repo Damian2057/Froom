@@ -9,7 +9,7 @@ import java.util.*
 class Item (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int,
+    val id: Int?,
 
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,6 +25,8 @@ class Item (
 
     @Lob
     val image: ByteArray,
+
+    val imageFormat: String,
 
     @ManyToMany(mappedBy = "items")
     val outfits: MutableList<Outfit> = mutableListOf(),
