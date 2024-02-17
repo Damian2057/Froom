@@ -1,23 +1,21 @@
 from __future__ import print_function
-import numpy as np
-import keras
+
 import dotenv
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
-from tensorflow.keras.datasets import fashion_mnist
-from tensorflow.keras.preprocessing import image
-from keras.layers import Conv2D, MaxPooling2D
+import keras
+import numpy as np
 from keras import backend as K
-from keras.models import load_model
+from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Dense, Dropout, Flatten
+from keras.models import Sequential
+from tensorflow.keras.datasets import fashion_mnist
 
 batch_size = 128
 num_classes = 10
-epochs = dotenv.dotenv_values().get("CATEGORY_EPOCHS")
+epochs_str = dotenv.dotenv_values().get("CATEGORY_EPOCHS")
+epochs = int(epochs_str)
 
-# input image dimensions
 img_rows, img_cols = 28, 28
 
-# the data, shuffled and split between train and test sets
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
 x_train = np.array(train_images)
@@ -39,7 +37,6 @@ x_test = x_test.astype('float32')
 x_train /= 255
 x_test /= 255
 
-# convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
@@ -65,5 +62,4 @@ model.fit(x_train, y_train,
           verbose=1,
           validation_data=(x_test, y_test))
 
-# Save the trained model
 model.save("fashion_mnist_model.h5")

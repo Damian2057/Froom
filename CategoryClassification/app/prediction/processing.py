@@ -1,11 +1,12 @@
-import numpy as np
-import os
 import logging
+import os
 from datetime import datetime
-from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_input, decode_predictions
-from app.exceptions.illegal_argument_exception import IllegalArgumentException
-from tensorflow.keras.preprocessing import image
+
+import numpy as np
 from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
+
+from app.exceptions.illegal_argument_exception import IllegalArgumentException
 
 MODEL_PATH = 'fashion_mnist_model.h5'
 TEMP_IMAGE_PATH = 'TEMP_IMAGE_PATH'
@@ -16,6 +17,7 @@ try:
 except (OSError, ImportError):
     logger.debug("Model not found. Downloading and saving the model.")
     raise IllegalArgumentException("Model not found. Downloading and saving the model.")
+
 
 def predict_clothing(file):
     img_rows, img_cols = 28, 28
