@@ -10,6 +10,7 @@ import com.froom.items.repository.ItemRepository
 import com.froom.items.util.toDto
 import com.froom.user.model.domain.User
 import com.froom.util.retrofit.category.CategoryAdapter
+import com.froom.util.retrofit.color.ColorAdapter
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -18,7 +19,8 @@ import java.util.*
 @Service
 class ItemService(
     val itemRepository: ItemRepository,
-    val categoryAdapter: CategoryAdapter
+    val categoryAdapter: CategoryAdapter,
+    val colorAdapter: ColorAdapter
 ) {
     fun getAllItems(): List<ItemDto> {
         return emptyList()
@@ -29,8 +31,9 @@ class ItemService(
     }
 
     @Transactional
-    fun createItem(file: MultipartFile, user: User): ItemDto {
+    fun createItem(file: MultipartFile, user: User): Any {
         println(categoryAdapter.getCategory(file))
+        println(colorAdapter.getColor(file))
 //        try {
 //            val item = Item(
 //                id = null,
@@ -44,7 +47,7 @@ class ItemService(
 //        } catch (e: Exception) {
 //            throw ItemCreationException("Item creation failed", e)
 //        }
-        return Any() as ItemDto
+        return Any()
     }
 
     fun deleteItem(uuid: String): ItemDto {

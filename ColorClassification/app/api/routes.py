@@ -22,10 +22,6 @@ def predict():
 
     file = request.files['file']
 
-    if file.filename == '':
-        logger.error('No selected file')
-        raise IllegalArgumentException('No selected file')
-
     try:
         # Perform prediction
         predicted_RGB = predict_color(file)
