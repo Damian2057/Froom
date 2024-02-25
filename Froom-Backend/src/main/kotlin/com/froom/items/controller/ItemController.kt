@@ -38,8 +38,8 @@ class ItemController(
     }
 
     @PostMapping()
-    fun createItem(@RequestParam("image") file: MultipartFile, authentication: Authentication): ResponseEntity<Any> {
-        return ResponseEntity<Any>(itemService.createItem(file, authentication.toUser()),
+    fun createItem(@RequestParam("image") file: MultipartFile, authentication: Authentication): ResponseEntity<ItemDto> {
+        return ResponseEntity<ItemDto>(itemService.createItem(file, authentication.toUser()),
             HttpStatus.CREATED)
     }
 

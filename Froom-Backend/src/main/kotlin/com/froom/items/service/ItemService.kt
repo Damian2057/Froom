@@ -31,7 +31,7 @@ class ItemService(
     }
 
     @Transactional
-    fun createItem(file: MultipartFile, user: User): Any {
+    fun createItem(file: MultipartFile, user: User): ItemDto {
         println(categoryAdapter.getCategory(file))
         println(colorAdapter.getColor(file))
 //        try {
@@ -47,7 +47,7 @@ class ItemService(
 //        } catch (e: Exception) {
 //            throw ItemCreationException("Item creation failed", e)
 //        }
-        return Any()
+        return Any() as ItemDto
     }
 
     fun deleteItem(uuid: String): ItemDto {
