@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 
 
 @Component
-class CategoryAdapter(environment: Environment) : BaseAdapter(environment) {
+class CategoryAdapter(environment: Environment) : BaseAdapter() {
     override val baseUrlKey: String = environment.getRequiredProperty("CATEGORY_URL")
     override val apiKey: String = environment.getRequiredProperty("CATEGORY_API_HEADER_KEY")
     override val apiSecretKey: String = environment.getRequiredProperty("CATEGORY_SECRET_API_KEY")

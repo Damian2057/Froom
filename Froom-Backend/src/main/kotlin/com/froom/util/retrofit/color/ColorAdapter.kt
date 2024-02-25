@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 
 @Component
-class ColorAdapter(environment: Environment) : BaseAdapter(environment) {
+class ColorAdapter(environment: Environment) : BaseAdapter() {
     override val baseUrlKey: String = environment.getRequiredProperty("COLOR_URL")
     override val apiKey: String = environment.getRequiredProperty("COLOR_API_HEADER_KEY")
     override val apiSecretKey: String = environment.getRequiredProperty("COLOR_SECRET_API_KEY")
