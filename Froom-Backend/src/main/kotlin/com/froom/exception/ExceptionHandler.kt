@@ -1,9 +1,7 @@
 package com.froom.exception
 
 import com.froom.exception.response.ErrorResponse
-import com.froom.exception.type.InvalidCredentialsException
-import com.froom.exception.type.TokenException
-import com.froom.exception.type.UserNotFoundException
+import com.froom.exception.type.*
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
@@ -62,7 +60,11 @@ class ExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(TokenException::class,
         InvalidCredentialsException::class,
-        UserNotFoundException::class)
+        UserNotFoundException::class,
+        ItemNotFoundException::class,
+        OutfitNotFoundException::class,
+        IncorrectOutfitException::class,
+    )
     fun handleAuthenticationException(e: Exception): ResponseEntity<ErrorResponse> {
         return ResponseEntity<ErrorResponse>(
             ErrorResponse(

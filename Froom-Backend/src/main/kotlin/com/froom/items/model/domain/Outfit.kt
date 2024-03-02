@@ -9,15 +9,15 @@ import java.util.*
 class Outfit (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int,
+    val id: Int?,
 
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     val uuid: UUID = UUID.randomUUID(),
 
-    val name: String,
+    var name: String,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // Changed to LAZY fetch type
     @JoinColumn(name = "user_id")
     val user: User,
 
