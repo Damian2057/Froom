@@ -7,5 +7,6 @@ data class ItemDto(
     val uuid: UUID,
     val categoryType: CategoryType,
     val color: List<Int>,
-    val image: ByteArray,
+    val image: String,
+    val imageFormat: String
 )
