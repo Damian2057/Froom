@@ -310,10 +310,321 @@
 					"name": "item",
 					"item": [
 						{
-							"name": "category-part",
+							"name": "upload-image",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get item by uuid",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": []
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all items",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item/f6db712c-71d8-4663-bf04-b91d9dc836a7",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item",
+										"f6db712c-71d8-4663-bf04-b91d9dc836a7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item/f6e45c02-0a4f-4c63-b22f-c024859516ea",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item",
+										"f6e45c02-0a4f-4c63-b22f-c024859516ea"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "outfit",
+					"item": [
+						{
+							"name": "create Random outfit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get random outfit",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete outfit",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Damian/Desktop/tshirt-unisex.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BACKEND_URL}}/item",
+									"host": [
+										"{{BACKEND_URL}}"
+									],
+									"path": [
+										"item"
+									]
+								}
 							},
 							"response": []
 						}
