@@ -2,6 +2,7 @@ package com.froom.items.service
 
 import com.froom.exception.type.ItemCreationException
 import com.froom.exception.type.ItemNotFoundException
+import com.froom.items.model.command.UpdateItemCommand
 import com.froom.items.model.domain.BodyPart
 import com.froom.items.model.domain.CategoryType
 import com.froom.items.model.domain.Item
@@ -12,27 +13,38 @@ import com.froom.user.model.domain.User
 import com.froom.util.retrofit.category.CategoryAdapter
 import com.froom.util.retrofit.color.ColorAdapter
 import jakarta.transaction.Transactional
-import org.springframework.stereotype.Service
 import kotlinx.coroutines.*
-import kotlinx.coroutines.async
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.servlet.function.ServerResponse.async
 import java.util.*
 
 @Service
 class ItemService(
-    val itemRepository: ItemRepository,
-    val categoryAdapter: CategoryAdapter,
-    val colorAdapter: ColorAdapter,
+    private val itemRepository: ItemRepository,
+    private val categoryAdapter: CategoryAdapter,
+    private val colorAdapter: ColorAdapter,
 ) {
-    fun getAllItems(): List<ItemDto> {
-        return emptyList()
+    val logger: Logger = LoggerFactory.getLogger(this::class.java)
+
+    @Transactional
+    fun getAllItems(user: User): List<ItemDto> {
+        logger.info("User items retrieved: ${user.userName}")
+        itemRepository.findItemByUserUuid(user.uuid).let {
+            return it.map { item -> item.toDto() }
+        }
     }
 
-    fun getItemByUuid(uuid: UUID): ItemDto {
-        return itemRepository.findByUuid(uuid)?.toDto() ?: throw ItemNotFoundException("Item not found")
+    @Transactional
+    fun getItemByUuid(uuid: UUID, user: User): ItemDto {
+        logger.info("Item retrieved: $uuid")
+        val item = itemRepository.findByUuid(uuid) ?: throw ItemNotFoundException("Item not found")
+        if (item.user.uuid != user.uuid) {
+            throw ItemNotFoundException("Cannot retrieve item: $uuid, user: ${user.uuid} does not own the item.")
+        }
+        return item.toDto()
     }
-
 
     @Transactional
     fun createItem(file: MultipartFile, user: User): ItemDto {
@@ -53,9 +65,30 @@ class ItemService(
                 color = color as List<Int>
             )
 
+            logger.info("Item created: $item")
+
             itemRepository.save(item).toDto()
         } catch (e: Exception) {
             throw ItemCreationException("Item creation failed", e)
+        }
+    }
+
+    @Transactional
+    fun deleteItem(uuid: UUID, user: User) {
+        val item = itemRepository.findByUuid(uuid) ?: throw ItemNotFoundException("Item not found")
+        if (item.user.uuid != user.uuid) {
+            throw ItemNotFoundException("Cannot delete item: $uuid, user: ${user.uuid} does not own the item.")
+        }
+        itemRepository.delete(item)
+        logger.info("Item deleted: $uuid")
+    }
+
+    @Transactional
+    fun getItemsByFilter(type: CategoryType?, bodyPart: BodyPart?, user: User): List<ItemDto> {
+        return if (type != null) {
+            itemRepository.findItemByCategoryTypeAndUserUuid(type, user.uuid).map { it.toDto() }
+        } else {
+            itemRepository.findItemByUserUuid(user.uuid).map { it.toDto() }
         }
     }
 
@@ -68,11 +101,27 @@ class ItemService(
     }
 
     @Transactional
-    fun deleteItem(uuid: String): ItemDto {
-        return Any() as ItemDto
+    fun updateItem(command: UpdateItemCommand, uuid: UUID, toUser: User): ItemDto {
+        val item = itemRepository.findByUuid(uuid) ?: throw ItemNotFoundException("Item not found")
+        if (item.user.uuid != toUser.uuid) {
+            throw ItemNotFoundException("Cannot update item: $uuid, user: ${toUser.uuid} does not own the item.")
+        }
+        item.categoryType = command.category
+        item.color = command.color
+        logger.info("Item updated: $item")
+        return itemRepository.save(item).toDto()
+
     }
 
-    fun getItemsByFilter(type: CategoryType?, bodyPart: BodyPart?): List<ItemDto> {
-        return emptyList()
+    @Transactional
+    fun updateItemImage(file: MultipartFile, uuid: UUID, toUser: User): ItemDto {
+        val item = itemRepository.findByUuid(uuid) ?: throw ItemNotFoundException("Item not found")
+        if (item.user.uuid != toUser.uuid) {
+            throw ItemNotFoundException("Cannot update item: $uuid, user: ${toUser.uuid} does not own the item.")
+        }
+        item.image = file.bytes
+        item.imageFormat = file.contentType!!
+        return itemRepository.save(item).toDto()
     }
+
 }

@@ -9,29 +9,29 @@ import java.util.*
 class Item (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Int?,
+    val id: Int? = null,
 
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     val uuid: UUID = UUID.randomUUID(),
 
     @Enumerated(EnumType.STRING)
-    val categoryType: CategoryType,
+    var categoryType: CategoryType,
 
     @ElementCollection
     @CollectionTable(name = "item_color", joinColumns = [JoinColumn(name = "item_id")])
     @Column(name = "color")
-    val color: List<Int>,
+    var color: List<Int>,
 
     @Lob
-    val image: ByteArray,
+    var image: ByteArray,
 
-    val imageFormat: String,
+    var imageFormat: String,
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", cascade = [CascadeType.ALL])
     val outfits: MutableList<Outfit> = mutableListOf(),
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) // Changed to LAZY fetch type
     @JoinColumn(name = "user_id")
     val user: User
 )
